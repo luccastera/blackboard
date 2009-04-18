@@ -12,7 +12,6 @@ This library implements a [TupleSpace](http://en.wikipedia.org/wiki/Tuple_space)
 
 ## TO DO:
 
-* Get strings with white space to work as a token
 * Test with Ruby 1.9
 * Show benchmark of using blackboard vs using Rinda.
 * Allow users to use a different port (and other options) for Redis server in TupleSpace.initialize

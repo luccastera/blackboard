@@ -1,3 +1,5 @@
+require 'uri'
+
 module Blackboard
 
   class TupleSpace
@@ -19,7 +21,7 @@ module Blackboard
       tuple = Tuple.new(tuple) if tuple.instance_of? Array
       raise InvalidTuple unless tuple.instance_of? Tuple      
       begin
-        @redis.set tuple.to_s, Time.now
+        @redis.set URI.escape(tuple.to_s), 1
         @redis.incr "global:size"
       rescue Errno::ECONNREFUSED
         raise RedisServerNotAvailable
@@ -30,11 +32,11 @@ module Blackboard
       template = Tuple.new(template) if template.instance_of? Array
       raise InvalidTuple unless template.instance_of? Tuple
       begin
-        all_matches = @redis.keys template.to_s
+        all_matches = @redis.keys URI.escape(template.to_s)
         if all_matches.instance_of?(Array) && all_matches.size > 0
           @redis.delete(all_matches.first)
           @redis.decr "global:size"
-          Tuple.from_s(all_matches.first)
+          Tuple.from_s(URI.unescape(all_matches.first))
         else
           nil
         end        
@@ -47,9 +49,9 @@ module Blackboard
       template = Tuple.new(template) if template.instance_of? Array
       raise InvalidTuple unless template.instance_of? Tuple
       begin      
-        all_matches = @redis.keys template.to_s
+        all_matches = @redis.keys URI.escape(template.to_s)
         if all_matches.instance_of?(Array) && all_matches.size > 0
-          Tuple.from_s(all_matches.first)
+          Tuple.from_s(URI.unescape(all_matches.first))
         else
           nil
         end

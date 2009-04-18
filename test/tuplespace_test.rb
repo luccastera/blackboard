@@ -10,6 +10,10 @@ class TupleSpaceTest < Test::Unit::TestCase
     @tuplespace.flush
   end
   
+  def teardown
+    @tuplespace.flush
+  end
+  
   def test_should_be_able_to_write_a_tuple_to_tuplespace
     @tuplespace.write @tuple
   end
@@ -39,7 +43,6 @@ class TupleSpaceTest < Test::Unit::TestCase
   end
   
   def test_write_then_read_with_a_string_token_that_has_space
-    #TODO: make this test pass
     new_tuple = Tuple.new([:message, 'this is a message'])
     @tuplespace.write(new_tuple)
     assert_equal new_tuple, @tuplespace.read([:message, 'this is a message'])      
