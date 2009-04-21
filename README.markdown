@@ -18,6 +18,7 @@ This library implements a [TupleSpace](http://en.wikipedia.org/wiki/Tuple_space)
 * Write documentation on README on how to install redis and redis-rb
 * Create sample capistrano + monit recipe and post them on github, then post link to them on this README
 * Create examples to show how to use it.
+* Turn _read_ and _take_ calls into blocking calls (and maybe offer a non-blocking option, but default should be blocking)
 
 
 Copyright (c) 2009      Luc Castera
