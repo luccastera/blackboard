@@ -39,7 +39,7 @@ module Blackboard
           Tuple.from_s(URI.unescape(all_matches.first))
         else
           nil
-        end        
+        end
       rescue Errno::ECONNREFUSED
         raise RedisServerNotAvailable
       end       
