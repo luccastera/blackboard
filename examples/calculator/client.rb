@@ -28,9 +28,7 @@ puts "Waiting for results..."
 i = 1
 loop do
   t = ts.take([:result, nil, nil])
-  if t.nil?
-    next
-  end  
+
   puts "Result ##{t[1]} = #{t[2]}"
   i += 1
   break if i > 10 # 10 request were sent

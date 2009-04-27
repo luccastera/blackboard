@@ -2,6 +2,8 @@ require 'uri'
 
 module Blackboard
 
+  FETCH_INTERVALS = 0.001
+
   class TupleSpace
   
     def initialize
@@ -32,14 +34,15 @@ module Blackboard
       template = Tuple.new(template) if template.instance_of? Array
       raise InvalidTuple unless template.instance_of? Tuple
       begin
-        all_matches = @redis.keys URI.escape(template.to_s)
-        if all_matches.instance_of?(Array) && all_matches.size > 0
-          @redis.delete(all_matches.first)
-          @redis.decr "global:size"
-          Tuple.from_s(URI.unescape(all_matches.first))
-        else
-          nil
-        end
+        while true
+		      all_matches = @redis.keys URI.escape(template.to_s)
+		      if all_matches.instance_of?(Array) && all_matches.size > 0
+		        @redis.delete(all_matches.first)
+		        @redis.decr "global:size"
+		        return Tuple.from_s(URI.unescape(all_matches.first))
+          end
+          sleep FETCH_INTERVALS
+        end          
       rescue Errno::ECONNREFUSED
         raise RedisServerNotAvailable
       end       
@@ -48,12 +51,13 @@ module Blackboard
     def read(template)
       template = Tuple.new(template) if template.instance_of? Array
       raise InvalidTuple unless template.instance_of? Tuple
-      begin      
-        all_matches = @redis.keys URI.escape(template.to_s)
-        if all_matches.instance_of?(Array) && all_matches.size > 0
-          Tuple.from_s(URI.unescape(all_matches.first))
-        else
-          nil
+      begin
+        while true      
+          all_matches = @redis.keys URI.escape(template.to_s)
+          if all_matches.instance_of?(Array) && all_matches.size > 0
+            return Tuple.from_s(URI.unescape(all_matches.first))
+          end
+          sleep FETCH_INTERVALS
         end
       rescue Errno::ECONNREFUSED
         raise RedisServerNotAvailable

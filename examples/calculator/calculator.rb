@@ -23,10 +23,6 @@ class SimpleCalculator
     loop do
       tuple = @ts.take([:calculator, nil, nil, nil, nil])
       puts "#{Time.now} => #{tuple.inspect}"
-      if tuple.nil?
-        sleep 1
-        next
-      end
       
       id = tuple[1]
       operation = tuple[2]
