@@ -14,7 +14,6 @@ This library implements a [TupleSpace](http://en.wikipedia.org/wiki/Tuple_space)
 
 * Test with Ruby 1.9
 * Show benchmark of using blackboard vs using Rinda.
-* Allow users to use a different port (and other options) for Redis server in TupleSpace.initialize
 * Write documentation on README on how to install redis and redis-rb
 * Create sample capistrano + monit recipe and post them on github, then post link to them on this README
 * Create examples to show how to use it.

@@ -6,8 +6,9 @@ module Blackboard
 
   class TupleSpace
   
-    def initialize
-      @redis = Redis.new
+    def initialize(opts={})
+      @opts = {:host => 'localhost', :port => '6379', :db => 0}.merge(opts)
+      @redis = Redis.new(@opts)
     end
     
     def flush
@@ -23,7 +24,7 @@ module Blackboard
       tuple = Tuple.new(tuple) if tuple.instance_of? Array
       raise InvalidTuple unless tuple.instance_of? Tuple      
       begin
-        @redis.set URI.escape(tuple.to_s), 1
+        @redis.set URI.escape(tuple.to_s), Time.now
         @redis.incr "global:size"
       rescue Errno::ECONNREFUSED
         raise RedisServerNotAvailable
