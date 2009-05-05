@@ -1,6 +1,6 @@
 # Blackboard
 
-This library implements a [TupleSpace](http://en.wikipedia.org/wiki/Tuple_space) on top of [Redis](http://code.google.com/p/redis/). It is similar to [Rinda](http://www.ruby-doc.org/stdlib/libdoc/rinda/rdoc/classes/Rinda/TupleSpace.html), but the tuplespace is persisted asynchronously (thanks to Redis) and it should be much faster.
+This library implements a [TupleSpace](http://en.wikipedia.org/wiki/Tuple_space) on top of [Redis](http://code.google.com/p/redis/). It is similar to [Rinda](http://www.ruby-doc.org/stdlib/libdoc/rinda/rdoc/classes/Rinda/TupleSpace.html), but the tuplespace is persisted asynchronously (thanks to Redis).
 
 This library has been tested with Ruby 1.9!
 
