@@ -16,7 +16,8 @@ For a preview of how to install, deploy, and monitor Redis, check out [redis-stu
 
 ## TO DO:
 
-* Show benchmark of using blackboard vs using Rinda.
+* Make take and write atomic
+* Fix 0(n) issue: redis keys method is 0(n)
 
 
 Copyright (c) 2009      Luc Castera
